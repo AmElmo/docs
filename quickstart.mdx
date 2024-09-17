@@ -1,53 +1,47 @@
 ---
-title: 'Quickstart'
-description: 'Start building awesome documentation in under 5 minutes'
+title: '⚡️ Quickstart'
 ---
 
-## Setup your development
+## Get your API key
 
-Learn how to update your docs locally and deploy them to the public.
+Sign up at [VideoSupport](https://app.videosupport.io/signup) and log in to your account.
 
-### Edit and preview
+Head over to the API menu on the right sidebar.
 
-<AccordionGroup>
-  <Accordion icon="github" title="Clone your docs locally">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.mintlify.com). To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Previewing helps you make sure your changes look as intended. We built a
-    command line interface to render these changes locally. 1. Install the
-    [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the
-    documentation changes locally with this command: ``` npm i -g mintlify ```
-    2. Run the following command at the root of your documentation (where
-    `mint.json` is): ``` mintlify dev ```
-  </Accordion>
-</AccordionGroup>
+<img
+  src="images/API menu.png"
+  alt="API menu"
+  width="300"
+/>
 
-### Deploy your changes
+Click on the button `Create a New Set Of Credentials` in order to get your secret token.
 
-<AccordionGroup>
+These credentials are linked to a specific API version (currently v1).
 
-<Accordion icon="message-bot" title="Install our Github app">
-  Our Github app automatically deploys your changes to your docs site, so you
-  don't need to manage deployments yourself. You can find the link to install on
-  your [dashboard](https://dashboard.mintlify.com). Once the bot has been
-  successfully installed, there should be a check mark next to the commit hash
-  of the repo.
-</Accordion>
-<Accordion icon="rocket" title="Push your changes">
-  [Commit and push your changes to
-  Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
-  for your changes to update in your docs site. If you push and don't see that
-  the Github app successfully deployed your changes, you can also manually
-  update your docs through our [dashboard](https://dashboard.mintlify.com).
-</Accordion>
+<img
+  src="images/API credentials.png"
+  alt="API menu"
+  width="700"
+/>
 
-</AccordionGroup>
+
+
+## Authenticating requests
+
+All requests to the REST API must be authenticated by passing your secret token in the headers of the requests as follows:
+
+`headers["Access-Token"] = "your_secret_token"`
+
+
+The base URL of the API is the following:
+
+`https://app.videosupport.io/api/:api_version`
+
+Where the api_version is the version linked to your credential set (currently v1)
+
+💡 Only https requests are accepted.
+
+
 
 ## Update your docs
 

@@ -22,7 +22,7 @@
     "/api/v1/video_request_links": {
       "post": {
         "summary": "Create Video Request Link",
-        "description": "Generates a unique video request link with an empty request body.",
+        "description": "Generates a unique video request link with an empty request body or external parameters",
         "requestBody": {
           "description": "Empty request body to create a video request link",
           "required": true,

@@ -3,4 +3,7 @@ title: 'Create Video Request Link'
 openapi: 'POST /api/v1/video_request_links'
 ---
 
-This endpoint generates a unique video request link.
+This endpoint generates a unique video request link. The reponse contains the link.
+
+You can also add `external_parameters` to the body of the `POST` request (such as conversation ID, user ID, e-mail, etc.).
+Those will be fetched and added to the webhook notification once a video has been recorded.

@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://videosupport.io"
     }
   ],
   "security": [
@@ -19,8 +19,8 @@
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
+    "/api/v1/video_request_links": {
+      "post": {
         "description": "Returns all plants from the system that the user has access to",
         "parameters": [
           {
@@ -35,7 +35,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Video Request Link",
             "content": {
               "application/json": {
                 "schema": {
@@ -60,7 +60,7 @@
         }
       },
       "post": {
-        "description": "Creates a new plant in the store",
+        "description": "Generate a unique video request link",
         "requestBody": {
           "description": "Plant to add to the store",
           "content": {
@@ -138,15 +138,30 @@
         ],
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
+          "video_request_link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "example": "https://app.videosupport.io/r/abd-def-ghi"
+                        },
+                        "external_key": {
+                          "type": "string",
+                          "example": "abc-def-ghi"
+                        },
+                        "external_parameters": {
+                          "type": "object"                        },
+                        "id": {
+                          "type": "string",
+                          "example": "f98a1fae-6a4c-43c3-bf16-example12345"
+                        }
+                      }
+                    },
+                    "api_version": {
+                      "type": "string",
+                      "example": "v1"
+                    }
+                  }
       },
       "NewPlant": {
         "allOf": [
@@ -186,9 +201,10 @@
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      "accessToken": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Access-Token"
       }
     }
   }

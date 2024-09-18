@@ -1,33 +1,36 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'Start with the basics'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## 🔗 Video Request Links
 
-## Welcome
+This enpoint allows you to request a unique video request link and drop it anywhere in your application or internal process.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+## 🎥 Videos
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+This enpoint allows you to display a recorded video or delete videos (by their ID).
 
-## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+## 📢 Public Links
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+If you don't want to generate unique links for each recording, you can use public links.
+
+They look something like that: https://app.videosupport.io/pl/eULM/videosupport.io
+
+You can easily add URL parameters (such as `?conversation_id=id123`) to it. If you setup a webhook trigger in the settings (see next section below), those parameters will be added as `external_parameters` to the webhook notification triggerred whenever a video has been recorded with that link.
+It allows you to add any custom context to those links and display the videos recorded anywhere relevant in your interface.
+
+
+## 🪝 Webhooks
+
+Each API key can be linked to a specific webhook. As soon as a video has been recorded either:
+- by generating a video request link with that API key (itself linked to a webhook)
+- from a public link directly attached to that webhook
+
+a webhook notification will be triggered containing:
+- the link to the video
+- the URL to the video file (if you need to download it)
+- any external parameters of your choice (conversation ID, user ID, user e-mail, etc.)
+
+

@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "title": "OpenAPI Video Support API",
+    "description": "API for managing video request links and videos in the Video Support platform.",
     "license": {
       "name": "MIT"
     },
@@ -10,85 +10,56 @@
   },
   "servers": [
     {
-      "url": "https://videosupport.io"
+      "url": "https://app.videosupport.io"
     }
   ],
   "security": [
     {
-      "bearerAuth": []
+      "accessToken": []
     }
   ],
   "paths": {
     "/api/v1/video_request_links": {
       "post": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Video Request Link",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Generate a unique video request link",
+        "summary": "Create Video Request Link",
+        "description": "Generates a unique video request link with an empty request body.",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "description": "Empty request body to create a video request link",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "type": "object"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Video request link successfully created",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                "example": {
+                  "video_request_link": {
+                    "url": "https://app.videosupport.io/r/abd-def-ghi",
+                    "external_key": "abc-def-ghi",
+                    "external_parameters": {},
+                    "id": "f98a1fae-6a4c-43c3-bf16-example12345"
+                  },
+                  "api_version": "v1"
                 }
               }
             }
           },
-          "400": {
-            "description": "unexpected error",
+          "442": {
+            "description": "Validation errors",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                "example": {
+                  "errors": [
+                    "Error message 1",
+                    "Error message 2"
+                  ]
                 }
               }
             }
@@ -96,32 +67,140 @@
         }
       }
     },
-    "/plants/{id}": {
+    "/api/v1/video_request_links/{id}": {
       "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+        "summary": "Destroy Video Request Link",
+        "description": "Delete a specific video request link by ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of plant to delete",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+              "type": "string"
+            },
+            "description": "The ID of the video request link to delete."
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
+          "200": {
+            "description": "Video request link successfully deleted"
           },
-          "400": {
-            "description": "unexpected error",
+          "404": {
+            "description": "Video request link not found",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                "example": {
+                  "error": "VideoRequestLink not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Show Video Request Link",
+        "description": "Retrieve details about a specific video request link by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the video request link to retrieve."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved video request link",
+            "content": {}
+          },
+          "404": {
+            "description": "Video request link not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "VideoRequestLink not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/videos/{id}": {
+      "get": {
+        "summary": "Show Video",
+        "description": "Retrieve a unique video request link for a specific video by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the video to retrieve the request link for."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved video request link",
+            "content": {
+              "application/json": {
+                "example": {
+                  "video_request_link": {
+                    "url": "https://app.videosupport.io/r/abd-def-ghi",
+                    "external_key": "abc-def-ghi",
+                    "external_parameters": {},
+                    "id": "f98a1fae-6a4c-43c3-bf16-example12345"
+                  },
+                  "api_version": "v1"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation errors",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    "Error message 1",
+                    "Error message 2"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy Video",
+        "description": "Delete a specific video by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the video to delete."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Video successfully deleted"
+          },
+          "404": {
+            "description": "Video not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "VideoRequestLink not found"
                 }
               }
             }
@@ -131,75 +210,6 @@
     }
   },
   "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "video_request_link": {
-                      "type": "object",
-                      "properties": {
-                        "url": {
-                          "type": "string",
-                          "example": "https://app.videosupport.io/r/abd-def-ghi"
-                        },
-                        "external_key": {
-                          "type": "string",
-                          "example": "abc-def-ghi"
-                        },
-                        "external_parameters": {
-                          "type": "object"                        },
-                        "id": {
-                          "type": "string",
-                          "example": "f98a1fae-6a4c-43c3-bf16-example12345"
-                        }
-                      }
-                    },
-                    "api_version": {
-                      "type": "string",
-                      "example": "v1"
-                    }
-                  }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      }
-    },
     "securitySchemes": {
       "accessToken": {
         "type": "apiKey",

@@ -45,16 +45,11 @@
       "group": "Endpoints",
       "pages": [
         "api-reference/introduction",
-        {
-          "group": "Endpoints",
-          "pages": [
-            "api-reference/endpoint/create",
-            "api-reference/endpoint/get",  
-            "api-reference/endpoint/delete",  
-            "api-reference/endpoint/show-video", 
-            "api-reference/endpoint/delete-video"    
-          ]
-        }
+        "api-reference/endpoint/create",
+        "api-reference/endpoint/get",
+        "api-reference/endpoint/delete",
+        "api-reference/endpoint/show-video",
+        "api-reference/endpoint/delete-video"
       ]
     }
   ],
@@ -68,5 +63,6 @@
         "method": "key",
         "name": "my-api-key"
     }
-}
+},
+"feedback.thumbsRating": true
 }
